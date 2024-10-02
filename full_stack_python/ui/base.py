@@ -12,10 +12,17 @@ def base_page(child:rx.Component,hide_navbar=False, *args, **kwargs) -> rx.Compo
         rx.logo(),
         rx.color_mode.button(position="bottom-left"),
     )
-    else: 
-        return rx.container(
-            navbar(), # To show the navbar in here in case it is True,
+    return rx.fragment( # does nt unlike container 
+        navbar(), # To show the navbar in here in case it is True,
+        rx.box(
             child,
-            rx.color_mode.button(position="bottom-left"),
-        )
+            padding="1em",
+            text_alling = "center",
+            width= "100%",
+            id="my-content-area-el",
+        ),
+        rx.color_mode.button(position="bottom-left",id="my-light-color-btn"),
+        id="my-base-container"
+    )
+
     
