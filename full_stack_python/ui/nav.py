@@ -1,5 +1,7 @@
 import reflex as rx
 
+from .. import navigation 
+
 def navbar_link(text: str, url: str) -> rx.Component:
     return rx.link(
         rx.text(text, size="4", weight="medium"), href=url
@@ -11,22 +13,27 @@ def navbar() -> rx.Component:
         rx.desktop_only(
             rx.hstack(
                 rx.hstack(
-                    rx.image(
-                        src="\logo.png",
-                        width="2.25em",
-                        height="auto",
-                        border_radius="25%",
+                    rx.link(
+                        rx.image(
+                            src="/assets/logo.png",
+                            width="2.25em",
+                            height="auto",
+                            border_radius="25%",
+                        ),
+                        href=navigation.routes.HOME_PATH
                     ),
-                    rx.heading(
-                        "Reflex", size="7", weight="bold"
+                    rx.link(
+                            rx.heading(
+                                "Reflex", size="7", weight="bold"
+                            ),
                     ),
                     align_items="center",
                 ),
                 rx.hstack(
-                    navbar_link("Home", "/#"),
-                    navbar_link("About", "/#"),
-                    navbar_link("Pricing", "/#"),
-                    navbar_link("Contact", "/#"),
+                    navbar_link("Home", navigation.routes.HOME_PATH),
+                    navbar_link("About", navigation.routes.ABOUT_US_ROUTE),
+                    navbar_link("Pricing", navigation.routes.PRICING_PATH),
+                    navbar_link("Contact", navigation.routes.CONTACT_US_PATH),
                     spacing="5",
                 ),
                 rx.hstack(
@@ -48,7 +55,7 @@ def navbar() -> rx.Component:
             rx.hstack(
                 rx.hstack(
                     rx.image(
-                        src="/logo.jpg",
+                        src="/assets/logo.png",
                         width="2em",
                         height="auto",
                         border_radius="25%",
@@ -63,6 +70,7 @@ def navbar() -> rx.Component:
                         rx.icon("menu", size=30)
                     ),
                     rx.menu.content(
+                        rx.link(),
                         rx.menu.item("Home"),
                         rx.menu.item("About"),
                         rx.menu.item("Pricing"),

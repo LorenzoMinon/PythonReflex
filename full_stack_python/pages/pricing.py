@@ -5,7 +5,7 @@ from ..ui.base import base_page
 
 def pricing_page() -> rx.Component:
     my_child=rx.vstack(
-            rx.heading("About Us", size="9"),
+            rx.heading("Pricing", size="9"),
             rx.text(
                 "Sth cool about us ",
             ),
