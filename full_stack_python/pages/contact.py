@@ -5,6 +5,12 @@ import asyncio
 from ..import navigation
 from ..ui.base import base_page
 
+class ContactEntryModel(rx.Model, table=True):
+    first_name: str
+    last_name: str
+    email: str
+    message: str
+
 
 class ContactState(rx.State):
     form_data: dict = {}
