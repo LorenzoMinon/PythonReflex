@@ -9,6 +9,13 @@ from ..ui.base import base_page
 class ContactState(rx.State):
     form_data: dict = {}
     did_submit: bool = False
+    timeleft: int = 5
+
+    @rx.var
+    def timeleft_label(self):
+        if self.timeleft < 1:
+            return "No time left"
+        return f"Time left {self.timeleft} seconds "
 
     @rx.var
     def thank_you(self):
@@ -24,12 +31,20 @@ class ContactState(rx.State):
         # sleep !! con un timeout
         await asyncio.sleep(4)
         self.did_submit = False
+        yield
+    
+    async def start_timer(self):
+        while self.timeleft > 0:
+            await asyncio.sleep(1)
+            self.timeleft -= 1
+            yield
+            
 
+@rx.page(
+    on_load = ContactState.start_timer,
+    route = navigation.routes.CONTACT_US_PATH
+    )
 
-
-
-
-@rx.page(route = navigation.routes.CONTACT_US_PATH)
 def contact_page() -> rx.Component:
     my_form = rx.form(
             rx.vstack(
@@ -69,6 +84,7 @@ def contact_page() -> rx.Component:
 
     my_child=rx.vstack(
             rx.heading("Contact", size="9"),
+            rx.text(ContactState.timeleft_label),
             rx.cond(ContactState.did_submit, ContactState.thank_you,
             ""),
             rx.desktop_only(
