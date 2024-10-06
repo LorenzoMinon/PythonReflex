@@ -1,34 +1,33 @@
 import reflex as rx
 import asyncio
-from sqlmodel import Field
+
 
 from datetime import datetime, timezone
 
 
 from ..import navigation
-from ..import contact
 from ..ui.base import base_page
 
+from . import form, state
 
-@rx.page(
-    route = navigation.routes.CONTACT_US_PATH
-    )
+
+
 
 def contact_page() -> rx.Component:
     my_child=rx.vstack(
             rx.heading("Contact", size="9"),
-            rx.cond(contact.ContactState.did_submit, contact.ContactState.thank_you,
+            rx.cond(state.ContactState.did_submit, state.ContactState.thank_you,
             ""),
             rx.desktop_only(
                 rx.box(
-                    contact.contact_form(),
+                    form.contact_form(),
                     id="my-form-box",
                     width="25vw",
                 )
             ),
             rx.mobile_and_tablet(
                 rx.box(
-                    contact.contact_form(),
+                    form.contact_form(),
                     id="my-form-box",
                     width="55vw",
                 )

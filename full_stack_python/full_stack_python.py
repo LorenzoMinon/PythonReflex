@@ -6,9 +6,7 @@ from rxconfig import config
 
 from .ui.base import base_page
 
-from . import pages
-
-from . import navigation
+from . import navigation, contact, pages
 
 class State(rx.State):
     """The app state."""
@@ -55,5 +53,5 @@ app.static_folder = "assets"
 app.add_page(index)
 app.add_page(pages.about_page, route=navigation.routes.ABOUT_US_ROUTE)
 app.add_page(pages.pricing_page, route=navigation.routes.PRICING_PATH)
-app.add_page(pages.contact_page, route=navigation.routes.CONTACT_US_PATH)
+app.add_page(contact.contact_page, route=navigation.routes.CONTACT_US_PATH)
 
