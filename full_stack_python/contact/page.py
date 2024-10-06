@@ -8,8 +8,31 @@ from datetime import datetime, timezone
 from ..import navigation
 from ..ui.base import base_page
 
-from . import form, state
+from . import form, state, model
 
+def contact_entry_list_item(contact: model.ContactEntryModel ):
+    return rx.box(
+        rx.heading(contact.first_name),
+        rx.text(contact.message),
+        padding='1em'
+    )
+
+# def foreach_callback(text):
+#     return rx.box(rx.text(text))
+
+def contact_entries_list_page() ->rx.Component:
+    return base_page(
+        rx.vstack(
+            rx.heading("Contact entries", size="9"),
+            rx.foreach(state.ContactState.entries,
+            contact_entry_list_item),
+            spacing="5",
+            justify="center",
+            align="center",
+            min_height="85vh",
+            id="my-child",
+        )
+    )
 
 
 

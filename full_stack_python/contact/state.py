@@ -1,6 +1,7 @@
 import reflex as rx
 import asyncio
-from sqlmodel import Field
+from typing import List
+from sqlmodel import Field, select
 
 from datetime import datetime, timezone
 
@@ -9,19 +10,11 @@ from .model import ContactEntryModel
 from .. import navigation
 
 
-
-
-
 class ContactState(rx.State):
     form_data: dict = {}
+    entries:  List['ContactEntryModel'] = []
     did_submit: bool = False
-    timeleft: int = 5
 
-    @rx.var
-    def timeleft_label(self):
-        if self.timeleft < 1:
-            return "No time left"
-        return f"Time left {self.timeleft} seconds "
 
     @rx.var
     def thank_you(self):
@@ -52,3 +45,12 @@ class ContactState(rx.State):
         await asyncio.sleep(4)
         self.did_submit = False
         yield
+
+    def list_entries(self):
+        with rx.session() as session: 
+            entries = session.exec(
+                select(ContactEntryModel)
+            ).all()
+            print(entries)
+            self.entries = entries
+
