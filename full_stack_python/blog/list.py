@@ -7,8 +7,7 @@ from datetime import datetime, timezone
 
 from ..import navigation
 from ..ui.base import base_page
-
-from . import form, state, model
+from . import  model, state
 
 def blog_post_detail_link(child: rx.Component, post:model.BlogPostModel):
     if post is None:
@@ -40,6 +39,11 @@ def blog_post_list_item(post: model.BlogPostModel ):
 def blog_post_list_page() ->rx.Component:
     return base_page(
         rx.vstack(
+            rx.heading("Blog Posts",  size="5"),
+            rx.link(
+                rx.button("New Post"),
+                href=navigation.routes.BLOG_POST_ADD_ROUTE
+            ),
             rx.heading("Blog Posts", size="9"),
             rx.foreach(state.BlogPostState.posts,
             blog_post_list_item),

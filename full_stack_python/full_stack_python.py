@@ -50,17 +50,31 @@ def index() -> rx.Component:
 
 app = rx.App()
 app.static_folder = "assets"
+
+#Index
 app.add_page(index)
+#About us
 app.add_page(pages.about_page, route=navigation.routes.ABOUT_US_ROUTE)
 
+#Blog
 app.add_page(blog.blog_post_list_page, route=navigation.routes.BLOG_POSTS_ROUTE,
 on_load=blog.BlogPostState.load_posts
 )
 
+app.add_page( #ADD 
+    blog.blog_post_add_page,
+    route=navigation.routes.BLOG_POST_ADD_ROUTE
+)
+app.add_page( #DETAIL
+    blog.blog_post_detail_page,
+    route=blog.BlogPostState.get_post_detail
+)
+
+#Pricing
 app.add_page(pages.pricing_page, route=navigation.routes.PRICING_PATH)
 
+#Contact
 app.add_page(contact.contact_page, route=navigation.routes.CONTACT_US_PATH)
-
 
 app.add_page(contact.contact_entries_list_page,
     route=navigation.routes.CONTACT_ENTRIES_ROUTE,
