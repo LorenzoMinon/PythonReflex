@@ -13,6 +13,17 @@ class BlogPostState(rx.State):
     def blog_post_id(self):
         print(self.router.page.params)
         return self.router.page.params.get("blog_id") or None
+    
+    def load_posts(self):
+        with rx.session() as session:
+            result = session.exec(
+                select(BlogPostModel)
+            ).all()
+            self.posts = result
+        # return
+        
+
+
 
     def get_post_detail(self):
         with rx.session() as session:

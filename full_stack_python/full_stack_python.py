@@ -61,14 +61,16 @@ app.add_page(blog.blog_post_list_page, route=navigation.routes.BLOG_POSTS_ROUTE,
 on_load=blog.BlogPostState.load_posts
 )
 
-app.add_page( #ADD 
+#ADD
+app.add_page(
     blog.blog_post_add_page,
     route=navigation.routes.BLOG_POST_ADD_ROUTE
 )
-app.add_page( #DETAIL
-    blog.blog_post_detail_page,
-    route=blog.BlogPostState.get_post_detail
-)
+#DETAIL
+# app.add_page( 
+#     blog.blog_post_detail_page,
+#     route=blog.BlogPostState.get_post_detail
+# )
 
 #Pricing
 app.add_page(pages.pricing_page, route=navigation.routes.PRICING_PATH)
