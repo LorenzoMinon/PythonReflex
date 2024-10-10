@@ -56,21 +56,29 @@ app.add_page(index)
 #About us
 app.add_page(pages.about_page, route=navigation.routes.ABOUT_US_ROUTE)
 
-#Blog
-app.add_page(blog.blog_post_list_page, route=navigation.routes.BLOG_POSTS_ROUTE,
-on_load=blog.BlogPostState.load_posts
+app.add_page(
+    blog.blog_post_list_page, 
+    route=navigation.routes.BLOG_POSTS_ROUTE,
+    on_load=blog.BlogPostState.load_posts
+    
 )
 
-#ADD
 app.add_page(
-    blog.blog_post_add_page,
+    blog.blog_post_add_page, 
     route=navigation.routes.BLOG_POST_ADD_ROUTE
 )
-#DETAIL
-# app.add_page( 
-#     blog.blog_post_detail_page,
-#     route=blog.BlogPostState.get_post_detail
-# )
+
+app.add_page(
+    blog.blog_post_detail_page, 
+    route="/blog/[blog_id]",
+    on_load=blog.BlogPostState.get_post_detail
+)
+
+app.add_page(
+    blog.blog_post_edit_page, 
+    route="/blog/[blog_id]/edit",
+    on_load=blog.BlogPostState.get_post_detail
+)
 
 #Pricing
 app.add_page(pages.pricing_page, route=navigation.routes.PRICING_PATH)
