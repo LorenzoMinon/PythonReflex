@@ -6,6 +6,7 @@ from rxconfig import config
 from .ui.base import base_page
 from . import navigation, contact, pages, blog, auth
 
+
 class State(rx.State):
     """The app state."""
     label = "Welcome to my nt"
@@ -63,7 +64,16 @@ app.add_page(
 #Index
 app.add_page(index)
 #About us
-app.add_page(pages.about_page, route=navigation.routes.ABOUT_US_ROUTE)
+app.add_page(
+    pages.about_page,
+    route=navigation.routes.ABOUT_US_ROUTE
+)
+
+app.add_page(
+    pages.protected_page,
+    route="/protected_page",
+    on_load= auth.SessionState.on_load
+)
 
 app.add_page(
     blog.blog_post_list_page, 
