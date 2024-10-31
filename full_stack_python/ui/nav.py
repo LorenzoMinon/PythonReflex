@@ -1,4 +1,5 @@
 import reflex as rx
+import reflex_local_auth
 
 from .. import navigation 
 
@@ -35,17 +36,26 @@ def navbar() -> rx.Component:
                     navbar_link("Blog",navigation.routes.BLOG_POSTS_ROUTE),
                     navbar_link("Pricing", navigation.routes.PRICING_PATH),
                     navbar_link("Contact", navigation.routes.CONTACT_US_PATH),
+                    
                     spacing="5",
                 ),
                 rx.hstack(
-                    rx.button(
-                        "Sign Up",
-                        size="3",
-                        variant="outline",
+                    rx.link(
+                        rx.button(
+                            "Sign Up",
+                            size="3",
+                            variant="outline",
+                        ),
+                        href=reflex_local_auth.routes.REGISTER_ROUTE
                     ),
-                    rx.button("Log In", size="3"),
-                    spacing="4",
-                    justify="end",
+                    rx.link(
+                        rx.button(
+                            "Login",
+                            size="3",
+                            variant="outline",
+                        ),
+                        href=reflex_local_auth.routes.LOGIN_ROUTE
+                    ),
                 ),
                 justify="between",
                 align_items="center",
@@ -78,8 +88,8 @@ def navbar() -> rx.Component:
                         rx.menu.item("Pricing",on_click= navigation.NavState.to_pricing),
                         rx.menu.item("Contact",on_click= navigation.NavState.to_contact),
                         rx.menu.separator(),
-                        rx.menu.item("Log in"),
-                        rx.menu.item("Sign up"),
+                        rx.menu.item("Log in",on_click= navigation.NavState.to_login),
+                        rx.menu.item("Sign up",on_click= navigation.NavState.to_register),
                     ),
                     justify="end",
                 ),
