@@ -25,6 +25,9 @@ class SessionState(reflex_local_auth.LocalAuthState):
         if not self.is_authenticated:
             return reflex_local_auth.LoginState.redir
         print(self.authenticated_user_info)
+    def perform_logout(self):
+        self.do_logout()
+        return rx.redirect("/")
 
 
 

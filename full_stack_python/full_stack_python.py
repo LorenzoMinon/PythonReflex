@@ -4,7 +4,13 @@ import reflex as rx
 import reflex_local_auth
 from rxconfig import config
 from .ui.base import base_page
-from . import navigation, contact, pages, blog, auth
+from . import navigation, contact, pages, blog
+from .auth.pages import(
+    my_login_page,
+    my_register_page,
+    my_logout_page
+)
+from.auth.state import SessionState
 
 
 class State(rx.State):
@@ -51,12 +57,17 @@ app = rx.App()
 app.static_folder = "assets"
 
 app.add_page(
-    auth.pages.my_login_page,
+    my_login_page,
     route=reflex_local_auth.routes.LOGIN_ROUTE,
     title="Login",
 )
 app.add_page(
-    auth.pages.my_register_page,
+    my_logout_page,
+    route=navigation.routes.LOGOUT_ROUTE,
+    title="Logout",
+)
+app.add_page(
+    my_register_page,
     route=reflex_local_auth.routes.REGISTER_ROUTE,
     title="Register",
 )
@@ -72,7 +83,7 @@ app.add_page(
 app.add_page(
     pages.protected_page,
     route="/protected_page",
-    on_load= auth.SessionState.on_load
+    on_load= SessionState.on_load
 )
 
 app.add_page(
