@@ -15,12 +15,12 @@ def navbar() -> rx.Component:
             rx.hstack(
                 rx.hstack(
                     rx.link(
-                        rx.image(
-                            src="/assets/logo.png",
-                            width="2.25em",
-                            height="auto",
-                            border_radius="25%",
-                        ),
+                    rx.image(
+                        src="/logo.jpg",
+                        width="2.25em",
+                        height="auto",
+                        border_radius="25%",
+                    ),
                         href=navigation.routes.HOME_PATH
                     ),
                     rx.link(

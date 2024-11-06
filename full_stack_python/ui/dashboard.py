@@ -22,7 +22,7 @@ def base_dashboard_page(child:rx.Component, *args, **kwargs) -> rx.Component:
 
         ),
         #rx.color_mode.button(position="bottom-left",id="my-light-color-btn"),
-        id="my-base-container"
+        # id="my-base-container"
     )
 
     

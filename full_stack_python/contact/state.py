@@ -5,7 +5,7 @@ from sqlmodel import Field, select
 
 from datetime import datetime, timezone
 
-from .model import ContactEntryModel
+from ..models import ContactEntryModel
 
 from .. import navigation
 from ..auth.state import SessionState

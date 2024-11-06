@@ -1,7 +1,7 @@
 import reflex as rx
 import reflex_local_auth
 
-from .models import UserInfo
+from ..models import UserInfo
 
 from typing import Optional
 
@@ -37,7 +37,7 @@ class SessionState(reflex_local_auth.LocalAuthState):
             if result is None:
                 return None
             #user_obj = result.user
-            print(result.user)
+            # print(result.user)
             return result
     def on_load(self):
         if not self.is_authenticated:

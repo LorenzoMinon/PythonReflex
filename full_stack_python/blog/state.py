@@ -5,7 +5,7 @@ import reflex as rx
 
 from sqlmodel import select
 
-from .model import BlogPostModel
+from ..models import BlogPostModel
 
 from .. import navigation
 
