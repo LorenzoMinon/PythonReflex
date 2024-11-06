@@ -4,12 +4,26 @@ from sqlmodel import Field
 
 from datetime import datetime, timezone
 
+from ..auth.state import SessionState
 
 from .state import ContactState
 
 
 def contact_form() -> rx.Component:
+    user_id = SessionState.my_user_id
     return rx.form(
+            # rx.cond(
+            #     SessionState.my_user_id,
+            #     rx.box( 
+            #         rx.input(
+            #         type='hidden',
+            #         name='user_id',
+            #         value=SessionState.my_user_id
+            #         ),
+            #         display='none'
+            #     ),
+            #     rx.fragment(''), 
+            # ),
             rx.vstack(
                 rx.hstack(
                     rx.input(

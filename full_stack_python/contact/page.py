@@ -4,16 +4,20 @@ import asyncio
 
 from datetime import datetime, timezone
 
+from ..auth.state import SessionState
 
 from ..import navigation
 from ..ui.base import base_page
 
 from . import form, state, model
 
-def contact_entry_list_item(contact: model.ContactEntryModel ):
+def contact_entry_list_item(contact: model.ContactEntryModel):
     return rx.box(
         rx.heading(contact.first_name),
-        rx.text(contact.message),
+        rx.text("Message:", contact.message),
+        rx.cond(contact.user_id, 
+                rx.text("User Id:", f"{contact.user_id}",), 
+                rx.fragment("")),
         padding='1em'
     )
 

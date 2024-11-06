@@ -8,9 +8,9 @@ from datetime import datetime, timezone
 from .model import ContactEntryModel
 
 from .. import navigation
+from ..auth.state import SessionState
 
-
-class ContactState(rx.State):
+class ContactState(SessionState):
     form_data: dict = {}
     entries:  List['ContactEntryModel'] = []
     did_submit: bool = False
@@ -30,6 +30,8 @@ class ContactState(rx.State):
             if v == "" or v is None:
                 continue
             data[k] = v
+        if self.my_user_id is not None:
+            data['user_id'] = self.my_user_id
         with rx.session() as session:
             db_entry = ContactEntryModel(
                 **data
