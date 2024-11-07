@@ -2,6 +2,7 @@ from datetime import datetime
 from typing import Optional, List
 import reflex as rx 
 
+from ..auth.state import SessionState
 
 from sqlmodel import select
 
@@ -14,7 +15,7 @@ if BLOG_POSTS_ROUTE.endswith("/"):
     BLOG_POSTS_ROUTE = BLOG_POSTS_ROUTE[:-1]
 
 
-class BlogPostState(rx.State):
+class BlogPostState(SessionState):
     posts: List['BlogPostModel'] = []
     post: Optional['BlogPostModel'] = None
     post_content: str = ""
@@ -47,6 +48,8 @@ class BlogPostState(rx.State):
                     (BlogPostModel.id == self.blog_post_id)
                 )
             ).one_or_none()
+            if result.userinfo: # db search!
+                print("working")
             self.post = result
             if result is None:
                 self.post_content = ""
@@ -113,8 +116,11 @@ class BlogAddPostFormState(BlogPostState):
     form_data: dict = {}
 
     def handle_submit(self, form_data):
-        self.form_data = form_data
-        self.add_post(form_data)
+        data = form_data.copy()
+        if self.my_userinfo_id is not None:
+            data['userinfo_id'] = self.my_userinfo_id
+        self.form_data = data
+        self.add_post(data)
         return self.to_blog_post(edit_page=True)
         # redirect
 

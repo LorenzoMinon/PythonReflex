@@ -13,10 +13,10 @@ import reflex_local_auth
 class SessionState(reflex_local_auth.LocalAuthState):
 
     @rx.var(cache=True)
-    def authenticated_username(self) -> str | None:
-        if self.authenticated_user.id < 0:
+    def my_userinfo_id(self) -> str | None:
+        if self.authenticated_user_info is None:
             return None
-        return self.authenticated_user.username
+        return self.authenticated_user_info.id
 
     @rx.var(cache=True)
     def my_user_id(self) -> str | None:
@@ -25,7 +25,13 @@ class SessionState(reflex_local_auth.LocalAuthState):
         return self.authenticated_user.id
 
     @rx.var(cache=True)
-    def authenticated_user_info(self) -> Optional[UserInfo]:
+    def authenticated_username(self) -> str | None:
+        if self.authenticated_user.id < 0:
+            return None
+        return self.authenticated_user.username
+
+    @rx.var(cache=True)
+    def authenticated_user_info(self) -> UserInfo | None:
         if self.authenticated_user.id < 0:
             return None
         with rx.session() as session:
@@ -36,9 +42,13 @@ class SessionState(reflex_local_auth.LocalAuthState):
             ).one_or_none()
             if result is None:
                 return None
-            #user_obj = result.user
+            # database lookup
+            # result.user
+            # user_obj = result.user
             # print(result.user)
             return result
+
+
     def on_load(self):
         if not self.is_authenticated:
             return reflex_local_auth.LoginState.redir
