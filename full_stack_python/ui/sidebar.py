@@ -103,6 +103,7 @@ def sidebar_dark_mode_toggle_item() -> rx.Component:
 def sidebar_items() -> rx.Component:
     return rx.vstack(
         sidebar_item("Dashboard", "layout-dashboard", navigation.routes.HOME_PATH),
+        sidebar_item("Articles", "Book-open", navigation.routes.ARTICLE_LIST_ROUTE),
         sidebar_item("Blog", "newspaper", navigation.routes.BLOG_POSTS_ROUTE),
         sidebar_item("Create post", "notebook-pen", navigation.routes.BLOG_POST_ADD_ROUTE),
         sidebar_item("Contact", "mail", navigation.routes.CONTACT_US_PATH),

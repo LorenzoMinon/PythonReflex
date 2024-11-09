@@ -1,16 +1,11 @@
-import reflex as rx
-import asyncio
-
-
-from datetime import datetime, timezone
-
-
-from ..import navigation
+import reflex as rx 
+import reflex_local_auth
+from .. import navigation
 from ..ui.base import base_page
 from ..models import BlogPostModel
 from . import state
 
-def blog_post_detail_link(child: rx.Component, post:BlogPostModel):
+def blog_post_detail_link(child: rx.Component, post: BlogPostModel):
     if post is None:
         return rx.fragment(child)
     post_id = post.id
@@ -20,15 +15,15 @@ def blog_post_detail_link(child: rx.Component, post:BlogPostModel):
     post_detail_url = f"{root_path}/{post_id}"
     return rx.link(
         child,
+        rx.heading("by ", post.userinfo.email),
         href=post_detail_url
     )
 
-
-
-def blog_post_list_item(post:BlogPostModel ):
+def blog_post_list_item(post: BlogPostModel):
     return rx.box(
         blog_post_detail_link(
             rx.heading(post.title),
+            
             post
         ),
         padding='1em'
@@ -37,6 +32,7 @@ def blog_post_list_item(post:BlogPostModel ):
 # def foreach_callback(text):
 #     return rx.box(rx.text(text))
 
+@reflex_local_auth.require_login
 def blog_post_list_page() ->rx.Component:
     return base_page(
         rx.vstack(
@@ -45,13 +41,10 @@ def blog_post_list_page() ->rx.Component:
                 rx.button("New Post"),
                 href=navigation.routes.BLOG_POST_ADD_ROUTE
             ),
-            rx.heading("Blog Posts", size="9"),
-            rx.foreach(state.BlogPostState.posts,
-            blog_post_list_item),
+            # rx.foreach(["abc", "abc", "cde"], foreach_callback),
+            rx.foreach(state.BlogPostState.posts, blog_post_list_item),
             spacing="5",
-            justify="center",
             align="center",
             min_height="85vh",
-            id="my-child",
         )
-    )
+    ) 

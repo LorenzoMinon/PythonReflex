@@ -1,6 +1,7 @@
 HOME_PATH="/"
 ABOUT_US_ROUTE="/about"
 CONTACT_US_PATH="/contact"
+ARTICLE_LIST_ROUTE="/articles"
 CONTACT_ENTRIES_ROUTE="/contact/entries"
 PRICING_PATH="/pricing"
 BLOG_POSTS_ROUTE="/blog"

@@ -34,6 +34,7 @@ def navbar() -> rx.Component:
                     navbar_link("Home", navigation.routes.HOME_PATH),
                     navbar_link("About", navigation.routes.ABOUT_US_ROUTE),
                     navbar_link("Blog",navigation.routes.BLOG_POSTS_ROUTE),
+                    navbar_link("Articles", navigation.routes.ARTICLE_LIST_ROUTE),
                     navbar_link("Pricing", navigation.routes.PRICING_PATH),
                     navbar_link("Contact", navigation.routes.CONTACT_US_PATH),
                     
@@ -86,7 +87,7 @@ def navbar() -> rx.Component:
                         rx.menu.item("About",on_click= navigation.NavState.to_about_us),
                         rx.menu.item("Blog", on_click= navigation.NavState.to_blog),
                         rx.menu.item("Pricing",on_click= navigation.NavState.to_pricing),
-                        rx.menu.item("Contact",on_click= navigation.NavState.to_contact),
+                        rx.menu.item("Articles", on_click=navigation.NavState.to_articles),
                         rx.menu.separator(),
                         rx.menu.item("Log in",on_click= navigation.NavState.to_login),
                         rx.menu.item("Sign up",on_click= navigation.NavState.to_register),

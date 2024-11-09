@@ -28,6 +28,9 @@ class NavState(rx.State):
     def to_blog_create(self):
         return self.to_blog_add
 
+    def to_articles(self):
+        return rx.redirect(routes.ARTICLE_LIST_ROUTE)
+
     def to_pricing(self):
         return rx.redirect(routes.PRICING_PATH)
 
